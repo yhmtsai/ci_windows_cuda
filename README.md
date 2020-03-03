@@ -1,5 +1,8 @@
-# docker_windows_cuda
-This Repo creates the dockerfiles for using cuda in windows docker and provides the gitlab windows shared vm runner config.
+# ci_windows_cuda
+[![github action](https://github.com/yhmtsai/ci_windows_cuda/workflows/windows-build/badge.svg)](https://github.com/yhmtsai/ci_windows_cuda/actions?query=workflow%3Awindows-build)
+[![gitlab ci](https://gitlab.com/ginkgo-project/ginkgo-public-ci/badges/develop/pipeline.svg)](https://gitlab.com/yhmtsai/ci_windows_cuda/pipelines)
+
+This repo creates the dockerfiles for using cuda in windows docker and provides the gitlab CI and github action setting. Moreover, share my experience/questions/failure during make them work.
 
 The docker images are availble in the docker hub https://hub.docker.com/repository/docker/yhmtsai/windows_cuda
 
@@ -51,6 +54,8 @@ Note. Gitlab CI does not set `refreshenv` properly. Besides `$env:PATH="C:\Progr
 $env:ChocolateyInstall = Convert-Path "$((Get-Command choco).Path)\..\.."   
 Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 ```
+
+Note. I try to use gitlab variable in powershell cmake, but it does not work by using ${VARNAME} $VARNAME. Thus, need to specify each jobs variable individually.
 
 # Github Action
 Because Github action does not use MSVC buildtools, using `choco install cuda -y` works well without copying integration.
