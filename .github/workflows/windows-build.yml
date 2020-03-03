@@ -1,0 +1,23 @@
+name: windows-build
+
+on: [push]
+
+jobs:
+  windows_cuda:
+    name: cuda/release/shared
+    runs-on: [windows-latest]
+    steps:
+    - name: setup
+      run: |
+        choco install cuda -y
+    - name: configure
+      run: |
+        $env:ChocolateyInstall = Convert-Path "$((Get-Command choco).Path)\..\.."
+        Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+        refreshenv
+        git clone https://github.com/ginkgo-project/ginkgo
+        mkdir build
+        cd build
+        $env:PATH="$pwd\windows_shared_library;$env:PATH"
+        cmake -DGINKGO_DEVEL_TOOLS=OFF -DGINKGO_BUILD_CUDA=ON -DGINKGO_BUILD_OMP=OFF ..
+        cmake --build . -j8 --config Release

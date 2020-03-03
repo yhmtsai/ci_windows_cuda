@@ -40,13 +40,24 @@ cmd:
 # Gitlab CI
 Gitlab introduces Windows Virtual Machine shared runner.
 
-It only has windows server version, the steps are similar to Docker Windows Server. i.e. `choco install cuda` does not work.
+It only has windows server version, the steps are similar to Docker Windows Server. i.e. `choco install cuda -y` does not work.
 
 Running `choco install cmake -y` with `--installargs '"ADD_CMAKE_TO_PATH=System"'` or `--installargs '"ADD_CMAKE_TO_PATH=User"'` and `refreshenv` doesn't set the CMake Path like docker, so use `$env:PATH="C:\Program Files\CMake\bin;$env:PATH"` to set cmake in powershell.
 
 Note. `$env:..=...` is only valid in current session, so using it in dockerfile does not affect the running environment.
 
-# Test: using [Ginkgo Project](https://github.com/ginkgo-project/ginkgo)
+Note. Gitlab CI does not set `refreshenv` properly. Besides `$env:PATH="C:\Program Files\CMake\bin;$env:PATH"`, use the following to set `refreshenv` properly from [reference](https://stackoverflow.com/questions/46758437/how-to-refresh-the-environment-of-a-powershell-session-after-a-chocolatey-instal).
+```
+$env:ChocolateyInstall = Convert-Path "$((Get-Command choco).Path)\..\.."   
+Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+```
+
+# Github Action
+Because Github action does not use MSVC buildtools, using `choco install cuda -y` works well without copying integration.
+The environment in different step are the same, so needs to use `refreshenv` to get correct environmet, set correct environment manually, or use `set-env` from [Github Action](https://help.github.com/en/actions/reference/development-tools-for-github-actions#set-an-environment-variable-set-env)
+
+
+# Test in Docker: using [Ginkgo Project](https://github.com/ginkgo-project/ginkgo)
 The following is run in `cmd`. Runing it in powershell needs to another way to initial environment.
 
 using server version needs the following setting. (I try several ways to update PATH but all leads the failure. Thus, need to set environment of cuda first)
