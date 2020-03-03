@@ -16,6 +16,7 @@ jobs:
         Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
         refreshenv
         git clone https://github.com/ginkgo-project/ginkgo
+        cd ginkgo
         mkdir build
         cd build
         $env:PATH="$pwd\windows_shared_library;$env:PATH"
