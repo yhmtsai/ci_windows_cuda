@@ -10,16 +10,16 @@ stages:
 before_script:
  - choco install cmake -y
  - $env:PATH="C:\Program Files\CMake\bin;$env:PATH"
- - curl.exe -L http://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda_10.2.89_441.22_win10.exe --output cuda.exe
- - 7z x cuda.exe -o"cuda"
- - Start-Process -FilePath ".\cuda\setup.exe" -ArgumentList "-s nvcc_10.2 cublas_10.2 cublas_dev_10.2 cudart_10.2 curand_10.2 curand_dev_10.2 cusolver_10.2 cusolver_dev_10.2 cusparse_10.2 cusparse_dev_10.2" -Wait -NoNewWindow
+ - curl.exe -L http://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda_10.2.89_441.22_win10.exe --output cuda_installer.exe
+ - 7z x cuda_installer.exe -o"cuda_installer"
+ - Start-Process -FilePath ".\cuda_installer\setup.exe" -ArgumentList "-s nvcc_10.2 cublas_10.2 cublas_dev_10.2 cudart_10.2 curand_10.2 curand_dev_10.2 cusolver_10.2 cusolver_dev_10.2 cusparse_10.2 cusparse_dev_10.2" -Wait -NoNewWindow
  - echo $?
- - copy "CUDAVisualStudioIntegration\extras\visual_studio_integration\MSBuildExtensions\*.*" "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Microsoft\VC\v160\BuildCustomizations"
+ - copy "cuda_installer\CUDAVisualStudioIntegration\extras\visual_studio_integration\MSBuildExtensions\*.*" "C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Microsoft\VC\v160\BuildCustomizations"
  - $env:PATH="$env:ProgramFiles\NVIDIA GPU Computing Toolkit\CUDA\v10.2\bin;$env:PATH"
  - $env:CUDA_PATH="$env:ProgramFiles\NVIDIA GPU Computing Toolkit\CUDA\v10.2"
  - $env:CUDA_PATH_V10_2="$env:ProgramFiles\NVIDIA GPU Computing Toolkit\CUDA\v10.2"
- - Remove-Item –path cuda –recurse 
- - Remove-Item cuda.exe
+ - Remove-Item –path cuda_installer –recurse 
+ - Remove-Item cuda_installer.exe
  
 build:
   extends:
