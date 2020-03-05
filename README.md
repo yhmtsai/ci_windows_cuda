@@ -1,6 +1,6 @@
 # ci_windows_cuda
 [![github action](https://github.com/yhmtsai/ci_windows_cuda/workflows/windows-build/badge.svg)](https://github.com/yhmtsai/ci_windows_cuda/actions?query=workflow%3Awindows-build)
-[![gitlab ci](https://gitlab.com/ginkgo-project/ginkgo-public-ci/badges/develop/pipeline.svg)](https://gitlab.com/yhmtsai/ci_windows_cuda/pipelines)
+[![gitlab ci](https://gitlab.com/yhmtsai/ci_windows_cuda/badges/master/pipeline.svg)](https://gitlab.com/yhmtsai/ci_windows_cuda/pipelines)
 
 This repo creates the dockerfiles for using cuda in windows docker and provides the gitlab CI and github action setting. Moreover, share my experience/questions/failure during make them work.
 
