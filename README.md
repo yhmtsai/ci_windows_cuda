@@ -103,3 +103,4 @@ Confirm that the expression in the Import declaration "C:\Program Files (x86)\Mi
 cmake tries to finds `CUDA 10.2.props` in `C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Microsoft\VC\v160\BuildCustomizations`
 
 Thus, we need to copy integration in `C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\BuildCustomizations\*.*` in original correct path or `cuda\CUDAVisualStudioIntegration\extras\visual_studio_integration\MSBuildExtensions\*.*` the extraction of local installer to the corresponding path `C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Microsoft\VC\v160\BuildCustomizations`
+
