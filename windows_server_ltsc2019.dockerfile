@@ -19,6 +19,6 @@ RUN choco install visualstudio2019-workload-vctools
 # For some reason, servercore can not install cuda by choco
 RUN curl.exe -L https://developer.download.nvidia.com/compute/cuda/11.2.1/local_installers/cuda_11.2.1_461.09_win10.exe --output cuda.exe
 RUN 7z x cuda.exe -o"cuda"
-RUN Start-Process -FilePath '.\cuda\setup.exe' -ArgumentList '-s nvcc_11.2 visual_studio_integration_11.2 cublas_11.2 cublas_dev_11.2 cudart_11.2 curand_11.2 curand_dev_11.2 cusolver_11.2 cusolver_dev_11.2 cusparse_11.2 cusparse_dev_11.22' -Wait -NoNewWindow
+RUN Start-Process -FilePath '.\cuda\setup.exe' -ArgumentList '-s nvcc_11.2 visual_studio_integration_11.2 cublas_11.2 cublas_dev_11.2 cudart_11.2 curand_11.2 curand_dev_11.2 cusolver_11.2 cusolver_dev_11.2 cusparse_11.2 cusparse_dev_11.2' -Wait -NoNewWindow
 RUN Remove-Item –path cuda –recurse 
 RUN Remove-Item cuda.exe
